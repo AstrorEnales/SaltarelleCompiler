@@ -355,7 +355,7 @@ namespace CoreLib.TestScript.Collections.Generic {
 		public void SortWithIComparerWorks() {
 			var list = new List<int> { 1, 6, 6, 4, 2 };
 			list.Sort(new TestReverseComparer());
-			Assert.AreEqual(list, new[] { 6, 6, 4, 2, 1});
+			Assert.AreEqual(list, new[] { 6, 6, 4, 2, 1 });
 		}
 
 		private class TestReverseComparer : IComparer<int> {
