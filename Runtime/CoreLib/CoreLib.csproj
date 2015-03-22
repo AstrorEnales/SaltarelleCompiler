@@ -99,7 +99,6 @@
     <Compile Include="ArgumentException.cs" />
     <Compile Include="ArgumentOutOfRangeException.cs" />
     <Compile Include="AppDomain.cs" />
-    <Compile Include="Convert.cs" />
     <Compile Include="Base64FormattingOptions.cs" />
     <Compile Include="InternalScriptMetadata.cs" />
     <Compile Include="Predicate.cs" />
