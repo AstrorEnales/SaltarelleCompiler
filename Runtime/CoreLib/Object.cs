@@ -63,6 +63,11 @@ namespace System {
 			return false;
 		}
 
+		[InlineCode("Object.create({this})")]
+		protected object MemberwiseClone() {
+			return this;
+		}
+
 		/// <summary>
 		/// Returns an array of a given object's own enumerable properties, in the same order as that provided by a for-in loop (the difference being that a for-in loop enumerates properties in the prototype chain as well).
 		/// </summary>

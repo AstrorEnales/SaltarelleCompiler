@@ -319,20 +319,42 @@ namespace System {
 			return 0;
 		}
 
-		// NOTE: There is no + operator since in JavaScript that returns the
-		//       concatenation of the date strings, which is pretty much useless.
-
 		/// <summary>
 		/// Returns the difference in milliseconds between two dates.
 		/// </summary>
-		[IntrinsicOperator]
-		public static int operator -(DateTime a, DateTime b) {
-			return 0;
+		[InlineCode("new {$System.TimeSpan}(({a}.valueOf() - {b}.valueOf()) * 10000)")]
+		public static TimeSpan operator -(DateTime a, DateTime b) {
+			return default(TimeSpan);
+		}
+
+		[InlineCode("new {$System.DateTime}({a}.valueOf() - {b}.ticks)")]
+		public static DateTime operator -(DateTime a, TimeSpan b) {
+			return default(DateTime);
 		}
 
 		[InlineCode("new {$System.TimeSpan}(({this} - {value}) * 10000)")]
 		public TimeSpan Subtract(DateTime value) {
 			return default(TimeSpan);
+		}
+
+		[InlineCode("new {$System.DateTime}({this}.valueOf() - {value}.ticks)")]
+		public DateTime Subtract(TimeSpan value) {
+			return default(DateTime);
+		}
+
+		[InlineCode("new {$System.DateTime}({a}.valueOf() + {b}.ticks)")]
+		public static DateTime operator +(DateTime a, TimeSpan b) {
+			return default(DateTime);
+		}
+
+		[InlineCode("new {$System.DateTime}({this}.valueOf() + {value}.ticks)")]
+		public DateTime Add(TimeSpan value) {
+			return default(DateTime);
+		}
+
+		public long Ticks {
+			[InlineCode("{this}.valueOf() * 10000")]
+			get { return 0; }
 		}
 
 		[InlineCode("{$System.Script}.staticEquals({a}, {b})")]

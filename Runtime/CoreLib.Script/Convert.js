@@ -79,5 +79,15 @@ ss_Convert.toChar = function Convert$toChar(value) {
     throw new ss_InvalidCastException('Invalid conversion of "' + typeName + '" to "Char".');
 };
 
+ss_Convert.__typeName = 'ss.Convert';
 ss.Convert = ss_Convert;
-ss.initClass(ss_Convert);
+ss.initClass(ss_Convert, ss, {
+    value: function Convert$value() {
+        if (!this.isValueCreated) {
+            this._value = this._valueFactory();
+            delete this._valueFactory;
+            this.isValueCreated = true;
+        }
+        return this._value;
+    }
+});

@@ -260,6 +260,10 @@ if (typeof(window) == 'object') {
 
 #include "Math.js"
 
+#include "IntPtr.js"
+
+#include "Thread.js"
+
 #include "IFormatProvider.js"
 
 #include "NumberFormatInfo.js"

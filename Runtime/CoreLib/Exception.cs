@@ -5,6 +5,7 @@
 
 using System.Collections;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 
 namespace System {
 	[Imported(ObeysTypeSystem = true)]
@@ -22,6 +23,10 @@ namespace System {
 		public Exception(string message, Exception innerException) {
 		}
 
+		[ScriptName("")]
+		public Exception(SerializationInfo info, StreamingContext context) {
+		}
+
 		public virtual string Message {
 			get { return null; }
 		}
@@ -29,6 +34,8 @@ namespace System {
 		public virtual Exception InnerException {
 			get { return null; }
 		}
+
+		public int HResult { get; protected set; }
 
 		/// <summary>
 		/// The call stack of the construction of this Exception.

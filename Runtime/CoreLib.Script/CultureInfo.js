@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
 // CultureInfo
 
-var ss_CultureInfo = function#? DEBUG CultureInfo$##(name, numberFormat, dateTimeFormat) {
+var ss_CultureInfo = function#? DEBUG CultureInfo$##(name) {
 	this.name = name;
-	this.numberFormat = numberFormat;
-	this.dateTimeFormat = dateTimeFormat;
+	this.numberFormat = ss_NumberFormatInfo.invariantInfo;
+	this.dateTimeFormat = ss_DateTimeFormatInfo.invariantInfo;
 };
 
 ss_CultureInfo.__typeName = 'ss.CultureInfo';
@@ -19,5 +19,5 @@ ss.initClass(ss_CultureInfo, ss, {
 	}
 }, null, [ss_IFormatProvider]);
 
-ss_CultureInfo.invariantCulture = new ss_CultureInfo('en-US', ss_NumberFormatInfo.invariantInfo, ss_DateTimeFormatInfo.invariantInfo);
+ss_CultureInfo.invariantCulture = new ss_CultureInfo('en-US');
 ss_CultureInfo.currentCulture = ss_CultureInfo.invariantCulture;

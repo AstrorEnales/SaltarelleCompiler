@@ -9,6 +9,10 @@ namespace System.Globalization {
 	[Imported(ObeysTypeSystem = true)]
 	[ScriptNamespace("ss")]
 	public sealed class CultureInfo : IFormatProvider {
+		public CultureInfo(string name, bool useUserOverride) {
+			
+		}
+
 		private CultureInfo() {
 		}
 

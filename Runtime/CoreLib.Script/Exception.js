@@ -5,6 +5,7 @@ var ss_Exception = function#? DEBUG Exception$##(message, innerException) {
 	this._message = message || 'An error occurred.';
 	this._innerException = innerException || null;
 	this._error = new Error();
+    this._hResult = 0;
 }
 
 ss_Exception.__typeName = 'ss.Exception';
@@ -16,9 +17,18 @@ ss.initClass(ss_Exception, ss, {
 	get_innerException: function#? DEBUG Exception$get_innerException##() {
 		return this._innerException;
 	},
+    get_hResult: function#? DEBUG Exception$get_hResult##() {
+		return this._hResult;
+	},
+    set_hResult: function#? DEBUG Exception$set_hResult##(value) {
+		this._hResult = value;
+	},
 	get_stack: function#? DEBUG Exception$get_stack##() {
 		return this._error.stack;
-	}
+	},
+	toString: function() {
+       return this.get_message() + '\n\t' + this.get_innerException() + '\n\t' + this.get_stack();
+    }
 });
 
 ss_Exception.wrap = function#? DEBUG Exception$wrap##(o) {

@@ -47,7 +47,7 @@ ss.getGenericParameterCount = function#? DEBUG ss$getGenericParameterCount##(typ
 };
 
 ss.getGenericArguments = function#? DEBUG ss$getGenericArguments##(type) {
-	return type.__typeArguments || null;
+	return type.__typeArguments || [];
 };
 
 ss.setMetadata = function#? DEBUG ss$_setMetadata##(type, metadata) {

@@ -21,6 +21,7 @@ namespace System {
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	[NonScriptable]
 	public abstract class MarshalByRefObject {
+		public virtual object InitializeLifetimeService() { return null; }
 	}
 
 	[EditorBrowsable(EditorBrowsableState.Never)]
@@ -33,9 +34,95 @@ namespace System {
 		}
 	}
 
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	[NonScriptable]
+	[Imported(ObeysTypeSystem = true)]
+	[ScriptNamespace("ss")]
 	public struct IntPtr {
+		public static readonly IntPtr Zero;
+
+		public IntPtr(int value) {
+			this.value = value;
+		}
+
+		public IntPtr(long value) {
+			this.value = value;
+		}
+
+		private readonly long value;
+
+		public override bool Equals(object obj) {
+			return obj is IntPtr && value == ((IntPtr)obj).value;
+		}
+
+		public override int GetHashCode() {
+			return unchecked((int)value);
+		}
+
+		public override string ToString() {
+			return value.ToString();
+		}
+
+		public int ToInt32() {
+			return (int)value;
+		}
+
+		public long ToInt64() {
+			return value;
+		}
+
+		[InlineCode("new {$System.IntPtr}({value})")]
+		public static explicit operator IntPtr(int value) {
+			return new IntPtr(value);
+		}
+
+		[InlineCode("new {$System.IntPtr}({value})")]
+		public static explicit operator IntPtr(long value) {
+			return new IntPtr(value);
+		}
+
+		[InlineCode("{value}.value")]
+		public static explicit operator int(IntPtr value) {
+			return (int)value.value;
+		}
+
+		[InlineCode("{value}.value")]
+		public static explicit operator long(IntPtr value) {
+			return value.value;
+		}
+
+		[InlineCode("{value1}.value === {value2}.value")]
+		public static bool operator ==(IntPtr value1, IntPtr value2) {
+			return value1.value == value2.value;
+		}
+
+		[InlineCode("{value1}.value !== {value2}.value")]
+		public static bool operator !=(IntPtr value1, IntPtr value2) {
+			return value1.value != value2.value;
+		}
+
+		[InlineCode("new {$System.IntPtr}({pointer}.value + {offset})")]
+		public static IntPtr Add(IntPtr pointer, int offset) {
+			return new IntPtr(pointer.value + offset);
+		}
+
+		[InlineCode("new {$System.IntPtr}({pointer}.value + {offset})")]
+		public static IntPtr operator +(IntPtr pointer, int offset) {
+			return new IntPtr(pointer.value + offset);
+		}
+
+		[InlineCode("new {$System.IntPtr}({pointer}.value - {offset})")]
+		public static IntPtr Subtract(IntPtr pointer, int offset) {
+			return new IntPtr(pointer.value - offset);
+		}
+
+		[InlineCode("new {$System.IntPtr}({pointer}.value - {offset})")]
+		public static IntPtr operator -(IntPtr pointer, int offset) {
+			return new IntPtr(pointer.value - offset);
+		}
+
+		[IntrinsicProperty]
+		public static int Size {
+			get { return 4; }
+		}
 	}
 
 	[EditorBrowsable(EditorBrowsableState.Never)]
@@ -758,13 +845,6 @@ namespace System.Threading {
 
 		public static void Exit(object obj) {
 		}
-	}
-
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	[NonScriptable]
-	public class Thread {
-		public int ManagedThreadId { get { return 0; } }
-		public static Thread CurrentThread { get { return null; } }
 	}
 }
 

@@ -84,6 +84,8 @@
     <Content Include="StringBuilder.js" />
     <Content Include="TypeSystem.js" />
     <Content Include="Stopwatch.js" />
+    <Content Include="Thread.js" />
+    <Content Include="IntPtr.js" />
     <Content Include="IFormatProvider.js" />
   </ItemGroup>
   <ItemGroup>

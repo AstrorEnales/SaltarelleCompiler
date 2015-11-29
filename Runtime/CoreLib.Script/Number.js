@@ -71,7 +71,7 @@ ss._commaFormatNumber = function#? DEBUG ss$_commaFormat##(number, groups, decim
 	return decimalPart ? s + decimalPart : s;
 };
 
-ss.netFormatNumber = function#? DEBUG ss$netFormatNumber##(num, format, numberFormat) {
+ss.netFormatNumber = function#? DEBUG ss$netFormatNumber##(num, format, numberFormat, typePrecision) {
 	var nf = (numberFormat && numberFormat.getFormat(ss_NumberFormatInfo)) || ss_CultureInfo.currentCulture.numberFormat;
 
 	var s = '';    
@@ -165,6 +165,41 @@ ss.netFormatNumber = function#? DEBUG ss$netFormatNumber##(num, format, numberFo
 			while (s.length < format.length)
 				s = "0" + s;
 			break;
+		case 'g': case 'G':
+	    if (precision == -1) {
+	      // The default ToString method for Single, etc. inlines the correct default precision
+	      // which is dependant on the number type. For all other 'g' calls we can't detect the
+	      // number type. Therefore we always use the Single precision of 7.
+	      precision = typePrecision || 7;
+	    }
+	    
+	    s = num.toExponential(Math.max(0, Math.min(precision - 1, 20)));
+	    var index = s.indexOf('e');
+	    var expMoves = parseInt(s.substr(index + 1));
+	    if (expMoves > -5 && expMoves < precision) {
+	      var precisionWithoutIntDigits = precision - expMoves - 1;
+	      s = ss.netFormatNumber(num, (fs == 'G' ? "F" : "f") + precisionWithoutIntDigits, numberFormat);
+	      var lastIndex = s.length - 1;
+	      while (s.substr(lastIndex) == '0' || s.substr(lastIndex) == nf.numberDecimalSeparator || s.substr(lastIndex) == '.') {
+	        s = s.substr(0, lastIndex);
+	      }
+	    }
+	    else {
+	      if (fs == 'G') {
+	        s = s.toUpperCase();
+	      }
+	      if (expMoves < 10) {
+	        s = s.substr(0, s.length - 1) + '0' + s.substr(s.length - 1);
+	      }
+	      var zeroCheckIndex = index - 1;
+	      while (s.substr(zeroCheckIndex, 1) == '0' ||
+	           s.substr(zeroCheckIndex, 1) == nf.numberDecimalSeparator ||
+	           s.substr(zeroCheckIndex, 1) == '.') {
+	        s = s.substr(0, zeroCheckIndex) + s.substr(zeroCheckIndex + 1);
+	        zeroCheckIndex--;
+	      }
+	    }
+	    break;
 	}
 
 	return s;

@@ -117,7 +117,7 @@ namespace CoreLib.TestScript.SimpleTypes {
 		public void UtcNowWorks() {
 			var utc   = DateTime.UtcNow;
 			var local = DateTime.Now;
-			Assert.IsTrue(Math.Abs(new DateTime(local.GetUtcFullYear(), local.GetUtcMonth(), local.GetUtcDate(), local.GetUtcHours(), local.GetUtcMinutes(), local.GetUtcSeconds(), local.GetUtcMilliseconds()) - utc) < 1000);
+			Assert.IsTrue(Math.Abs((new DateTime(local.GetUtcFullYear(), local.GetUtcMonth(), local.GetUtcDate(), local.GetUtcHours(), local.GetUtcMinutes(), local.GetUtcSeconds(), local.GetUtcMilliseconds()) - utc).TotalMilliseconds) < 1000);
 		}
 
 		[Test]
@@ -453,8 +453,9 @@ namespace CoreLib.TestScript.SimpleTypes {
 		}
 
 		[Test]
-		public void SubtractingDatesWorks() {
-			Assert.AreEqual(new DateTime(2011, 7, 12) - new DateTime(2011, 7, 11), 1440 * 60 * 1000);
+		public void SubtractingDatesWorks()
+		{
+			Assert.AreEqual((new DateTime(2011, 7, 12) - new DateTime(2011, 7, 11)).TotalMilliseconds, 1440 * 60 * 1000);
 		}
 
 		[Test]

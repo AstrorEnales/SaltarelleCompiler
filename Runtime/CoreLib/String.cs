@@ -223,6 +223,45 @@ namespace System {
 		public static string Format(string format, params object[] values) {
 			return null;
 		}
+		
+		[InlineCode("{$System.Script}.formatString({format}, {arg0})")]
+		public static String Format(String format, Object arg0) {
+			return null;
+		}
+
+		[InlineCode("{$System.Script}.formatString({format}, {arg0}, {arg1})")]
+		public static String Format(String format, Object arg0, Object arg1) {
+			return null;
+		}
+
+		[InlineCode("{$System.Script}.formatString({format}, {arg0}, {arg1}, {arg2})")]
+		public static String Format(String format, Object arg0, Object arg1, Object arg2) {
+			return null;
+		}
+
+		//TODO: IFormatProvider provider
+		[InlineCode("{$System.Script}.formatString({format}, {arg0})")]
+		public static String Format(IFormatProvider provider, String format, Object arg0) {
+      return null;
+		}
+
+		//TODO: IFormatProvider provider
+		[InlineCode("{$System.Script}.formatString({format}, {arg0}, {arg1})")]
+		public static String Format(IFormatProvider provider, String format, Object arg0, Object arg1) {
+		  return null;
+		}
+
+		//TODO: IFormatProvider provider
+		[InlineCode("{$System.Script}.formatString({format}, {arg0}, {arg1}, {arg2})")]
+		public static String Format(IFormatProvider provider, String format, Object arg0, Object arg1, Object arg2) {
+		  return null;
+		}
+
+		//TODO: IFormatProvider provider
+		[InlineCode("{$System.Script}.formatString({format}, {*values})", NonExpandedFormCode = "{$System.Script}.formatString.apply(null, [{format}].concat({values}))")]
+		public static String Format(IFormatProvider provider, String format, params Object[] values) {
+		  return null;
+		}
 
 		[ExpandParams]
 		public static string FromCharCode(params char[] charCode) {

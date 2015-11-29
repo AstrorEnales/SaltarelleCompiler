@@ -54,7 +54,7 @@ namespace CoreLib.TestScript {
 			watch.Start();
 			DateTime before = DateTime.Now;
 			bool hasIncreased = false;
-			while ((DateTime.Now - before) < 200) {
+			while ((DateTime.Now - before).TotalMilliseconds < 200) {
 				if (watch.ElapsedTicks > 0) {
 					hasIncreased = true;
 				}
@@ -73,7 +73,7 @@ namespace CoreLib.TestScript {
 			Assert.IsTrue((object)t1 is long, "is long");
 
 			DateTime before = DateTime.Now;
-			while ((DateTime.Now - before) < 50) {
+			while ((DateTime.Now - before).TotalMilliseconds < 50) {
 			}
 			long t2 = Stopwatch.GetTimestamp();
 			Assert.IsTrue(t2 > t1, "Should increase");
